@@ -1,4 +1,29 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+
+type Listing = {
+  id: string
+  title: string
+  slug: string
+  price: string
+  condition: string
+  category: string
+  created_at: string
+  image_urls: string[]
+}
+
 export default function Home() {
+  const [listings, setListings] = useState<Listing[]>([])
+
+  useEffect(() => {
+    fetch('/api/listings')
+      .then(r => r.json())
+      .then(data => {
+        if (data.success) setListings(data.listings.slice(0, 4))
+      })
+  }, [])
+
   return (
     <main className="min-h-screen bg-white">
 
@@ -33,29 +58,38 @@ export default function Home() {
         ))}
       </section>
 
-      {/* LISTINGS PREVIEW */}
+      {/* REAL LISTINGS */}
       <section className="max-w-5xl mx-auto px-6 py-12">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-black text-gray-900">Recent Listings</h2>
           <a href="/listings" className="text-sm text-red-600 font-medium hover:underline">See all →</a>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {[
-            { title: 'Calculus 2 — Stewart 9th Ed.', price: '$45', condition: 'Good', emoji: '📘' },
-            { title: 'Ravens Quarter-Zip (M)', price: '$55', condition: 'New', emoji: '🐦' },
-            { title: 'IKEA Study Chair', price: '$80', condition: 'Used', emoji: '🪑' },
-            { title: 'Intro to Psych — 5th Ed.', price: '$30', condition: 'Good', emoji: '📗' },
-          ].map((item, i) => (
-            <div key={i} className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition cursor-pointer">
-              <div className="aspect-square bg-gray-100 flex items-center justify-center text-4xl">{item.emoji}</div>
-              <div className="p-3">
-                <p className="font-bold text-gray-900">{item.price}</p>
-                <p className="text-sm text-gray-500 truncate">{item.title}</p>
-                <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full mt-1 inline-block">{item.condition}</span>
-              </div>
-            </div>
-          ))}
-        </div>
+        {listings.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-gray-400 text-sm">No listings yet — be the first to post!</p>
+            <a href="/sell" className="inline-block mt-4 bg-red-600 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-red-700">Sell an Item</a>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {listings.map(listing => {
+              const imageUrls = Array.isArray(listing.image_urls) ? listing.image_urls : []
+              return (
+                <a key={listing.id} href={`/listing/${listing.slug}`} className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition cursor-pointer block">
+                  {imageUrls.length > 0 ? (
+                    <img src={imageUrls[0]} alt={listing.title} className="w-full aspect-square object-cover" />
+                  ) : (
+                    <div className="aspect-square bg-gray-100 flex items-center justify-center text-4xl">🏷️</div>
+                  )}
+                  <div className="p-3">
+                    <p className="font-black text-gray-900 text-base">${listing.price}</p>
+                    <p className="text-sm text-gray-500 truncate mt-0.5">{listing.title}</p>
+                    <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full mt-1 inline-block">{listing.condition}</span>
+                  </div>
+                </a>
+              )
+            })}
+          </div>
+        )}
       </section>
 
       {/* HOUSING CTA */}
