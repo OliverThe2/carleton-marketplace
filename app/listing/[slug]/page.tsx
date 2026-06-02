@@ -69,7 +69,7 @@ export default function ListingPage() {
         <div className="text-center">
           <p className="text-4xl mb-4">🔍</p>
           <p className="text-gray-500 text-sm mb-4">Listing not found or has been removed.</p>
-          <a href="/listings" className="bg-red-600 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-red-700">Back to listings</a>
+          <a href="/listings" className="bg-red-600 text-white px-5 py-2 rounded-xl text-sm font-medium hover:bg-red-700">Back to listings</a>
         </div>
       </main>
     )
@@ -80,11 +80,16 @@ export default function ListingPage() {
 
   return (
     <main className="min-h-screen bg-gray-50">
-      <nav className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-        <a href="/" className="text-xl font-black text-red-600">Carleton<span className="text-gray-900">Marketplace</span></a>
-        <div className="flex gap-4 items-center">
-          <a href="/listings" className="text-sm text-gray-600 hover:text-gray-900">Back to listings</a>
-          <a href="/sell" className="bg-red-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-red-700">Sell Item</a>
+
+      {/* NAV */}
+      <nav className="bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between sticky top-0 z-50">
+        <a href="/" className="flex items-center gap-2">
+          <img src="/logo.png" alt="Carleton Marketplace" width={44} height={44} className="rounded-lg" />
+          <span className="font-black text-gray-900 text-lg hidden sm:block">Carleton <span className="text-red-600">Marketplace</span></span>
+        </a>
+        <div className="flex gap-2 items-center">
+          <a href="/listings" className="text-sm text-gray-600 hover:text-gray-900 font-medium px-3 py-1.5 rounded-lg hover:bg-gray-100">← Back</a>
+          <a href="/sell" className="bg-red-600 text-white text-sm px-4 py-2 rounded-xl font-semibold hover:bg-red-700 transition">+ Sell Item</a>
         </div>
       </nav>
 
