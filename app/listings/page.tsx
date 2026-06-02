@@ -63,27 +63,30 @@ export default function ListingsPage() {
 
   return (
     <main className="min-h-screen bg-gray-50">
-      <nav className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-        <a href="/" className="text-xl font-black text-red-600">Carleton<span className="text-gray-900">Marketplace</span></a>
-        <div className="flex gap-6 items-center">
-          <a href="/housing" className="text-sm text-gray-600 hover:text-gray-900">Housing</a>
-          <a href="/sell" className="bg-red-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-red-700">Sell Item</a>
-        </div>
+
+      {/* NAV */}
+      <nav className="bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between sticky top-0 z-50">
+        <a href="/" className="flex items-center gap-2">
+          <img src="/logo.png" alt="Carleton Marketplace" width={44} height={44} className="rounded-lg" />
+          <span className="font-black text-gray-900 text-lg hidden sm:block">Carleton <span className="text-red-600">Marketplace</span></span>
+        </a>
+        <a href="/sell" className="bg-red-600 text-white text-sm px-4 py-2 rounded-xl font-semibold hover:bg-red-700 transition">+ Sell Item</a>
       </nav>
 
-      <div className="bg-white border-b border-gray-200 px-6 py-4">
-        <div className="max-w-5xl mx-auto flex gap-3 items-center">
+      {/* SEARCH BAR */}
+      <div className="bg-white border-b border-gray-100 px-4 py-4">
+        <div className="max-w-6xl mx-auto flex gap-3 items-center">
           <input
             type="text"
             placeholder="Search listings..."
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="flex-1 border border-gray-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-red-500"
+            className="flex-1 border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-red-500"
           />
           <select
             value={sort}
             onChange={e => setSort(e.target.value)}
-            className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-red-500 bg-white"
+            className="border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-red-500 bg-white"
           >
             <option value="newest">Newest first</option>
             <option value="price-low">Price: low to high</option>
@@ -92,8 +95,9 @@ export default function ListingsPage() {
         </div>
       </div>
 
-      <div className="bg-white border-b border-gray-200 px-6 flex gap-2 overflow-x-auto">
-        <div className="max-w-5xl mx-auto flex gap-2 w-full">
+      {/* CATEGORY TABS */}
+      <div className="bg-white border-b border-gray-100 px-4 overflow-x-auto">
+        <div className="max-w-6xl mx-auto flex gap-2 w-full">
           {CATEGORIES.map(cat => (
             <button key={cat} onClick={() => setCategory(cat)}
               className={`whitespace-nowrap px-4 py-3 text-sm font-medium border-b-2 transition ${category === cat ? 'border-red-600 text-red-600' : 'border-transparent text-gray-500 hover:text-gray-900'}`}>
@@ -103,7 +107,8 @@ export default function ListingsPage() {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-6 py-8">
+      {/* LISTINGS GRID */}
+      <div className="max-w-6xl mx-auto px-4 py-8">
         {loading && (
           <div className="text-center py-20 text-gray-400 text-sm">Loading listings...</div>
         )}
@@ -112,7 +117,7 @@ export default function ListingsPage() {
           <div className="text-center py-20">
             <p className="text-2xl mb-2">🔍</p>
             <p className="text-gray-500 text-sm">No listings found. Try a different search or category.</p>
-            <a href="/sell" className="inline-block mt-4 bg-red-600 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-red-700">Be the first to post</a>
+            <a href="/sell" className="inline-block mt-4 bg-red-600 text-white px-5 py-2 rounded-xl text-sm font-medium hover:bg-red-700">Be the first to post</a>
           </div>
         )}
 
@@ -123,15 +128,15 @@ export default function ListingsPage() {
               {filtered.map(listing => {
                 const imageUrls = Array.isArray(listing.image_urls) ? listing.image_urls : []
                 return (
-                  <a key={listing.id} href={`/listing/${listing.slug}`} className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition cursor-pointer block">
+                  <a key={listing.id} href={`/listing/${listing.slug}`} className="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg hover:border-gray-300 transition cursor-pointer block">
                     {imageUrls.length > 0 ? (
                       <img src={imageUrls[0]} alt={listing.title} className="w-full aspect-square object-cover" />
                     ) : (
-                      <div className="aspect-square bg-gray-100 flex items-center justify-center text-4xl">🏷️</div>
+                      <div className="aspect-square bg-gray-50 flex items-center justify-center text-4xl">🏷️</div>
                     )}
                     <div className="p-3">
                       <p className="font-black text-gray-900 text-base">${listing.price}</p>
-                      <p className="text-sm text-gray-500 truncate mt-0.5">{listing.title}</p>
+                      <p className="text-sm font-semibold text-gray-900 truncate mt-0.5">{listing.title}</p>
                       <div className="flex items-center justify-between mt-2">
                         <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${CONDITIONS[listing.condition] || 'bg-gray-100 text-gray-600'}`}>
                           {listing.condition}
@@ -146,6 +151,7 @@ export default function ListingsPage() {
           </>
         )}
       </div>
+
     </main>
   )
 }

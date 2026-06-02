@@ -16,34 +16,26 @@ export default function SellPage() {
     const files = Array.from(e.target.files || [])
     const combined = [...images, ...files].slice(0, 5)
     setImages(combined)
-    const urls = combined.map(f => URL.createObjectURL(f))
-    setPreviews(urls)
+    setPreviews(combined.map(f => URL.createObjectURL(f)))
   }
 
   const removeImage = (index: number) => {
-    const newImages = images.filter((_, i) => i !== index)
-    const newPreviews = previews.filter((_, i) => i !== index)
-    setImages(newImages)
-    setPreviews(newPreviews)
+    setImages(images.filter((_, i) => i !== index))
+    setPreviews(previews.filter((_, i) => i !== index))
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
-
     const form = e.currentTarget
 
     try {
       const imageUrls: string[] = []
       for (const image of images) {
         const fileName = `${Date.now()}-${image.name.replace(/[^a-zA-Z0-9.]/g, '-')}`
-        const { error } = await supabase.storage
-          .from('listing-images')
-          .upload(fileName, image)
+        const { error } = await supabase.storage.from('listing-images').upload(fileName, image)
         if (!error) {
-          const { data } = supabase.storage
-            .from('listing-images')
-            .getPublicUrl(fileName)
+          const { data } = supabase.storage.from('listing-images').getPublicUrl(fileName)
           imageUrls.push(data.publicUrl)
         }
       }
@@ -63,15 +55,10 @@ export default function SellPage() {
         imageUrls,
       }
 
-      const res = await fetch('/api/listings', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      })
-
+      const res = await fetch('/api/listings', { method: 'POST', body: JSON.stringify(data) })
       const result = await res.json()
       if (result.success) setSubmitted(true)
       else alert('Something went wrong. Please try again.')
-
     } catch (err) {
       alert('Something went wrong. Please try again.')
     } finally {
@@ -87,8 +74,8 @@ export default function SellPage() {
           <h2 className="text-2xl font-black text-gray-900 mb-2">Listing submitted!</h2>
           <p className="text-gray-500 text-sm mb-6">Your item is pending admin review. You'll get an email at your Carleton address once it's live — usually within a few hours.</p>
           <div className="flex gap-3 justify-center">
-            <button onClick={() => setSubmitted(false)} className="border border-gray-200 text-gray-700 px-5 py-2 rounded-lg text-sm font-medium hover:bg-gray-50">Post another item</button>
-            <a href="/listings" className="bg-red-600 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-red-700">View listings</a>
+            <button onClick={() => setSubmitted(false)} className="border border-gray-200 text-gray-700 px-5 py-2 rounded-xl text-sm font-medium hover:bg-gray-50">Post another item</button>
+            <a href="/listings" className="bg-red-600 text-white px-5 py-2 rounded-xl text-sm font-medium hover:bg-red-700">View listings</a>
           </div>
         </div>
       </main>
@@ -97,9 +84,14 @@ export default function SellPage() {
 
   return (
     <main className="min-h-screen bg-gray-50">
-      <nav className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-        <a href="/" className="text-xl font-black text-red-600">Carleton<span className="text-gray-900">Marketplace</span></a>
-        <a href="/listings" className="text-sm text-gray-600 hover:text-gray-900">← Back to listings</a>
+
+      {/* NAV */}
+      <nav className="bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between sticky top-0 z-50">
+        <a href="/" className="flex items-center gap-2">
+          <img src="/logo.png" alt="Carleton Marketplace" width={44} height={44} className="rounded-lg" />
+          <span className="font-black text-gray-900 text-lg hidden sm:block">Carleton <span className="text-red-600">Marketplace</span></span>
+        </a>
+        <a href="/listings" className="text-sm text-gray-600 hover:text-gray-900 font-medium px-3 py-1.5 rounded-lg hover:bg-gray-100">← Back to listings</a>
       </nav>
 
       <div className="max-w-2xl mx-auto px-4 py-10">
@@ -110,6 +102,7 @@ export default function SellPage() {
 
         <form onSubmit={handleSubmit} className="space-y-5">
 
+          {/* CONTACT INFO */}
           <div className="bg-white border border-gray-200 rounded-2xl p-6">
             <h2 className="font-black text-gray-900 mb-4">Your contact info</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -132,6 +125,7 @@ export default function SellPage() {
             </div>
           </div>
 
+          {/* ITEM DETAILS */}
           <div className="bg-white border border-gray-200 rounded-2xl p-6">
             <h2 className="font-black text-gray-900 mb-4">Item details</h2>
             <div className="space-y-4">
@@ -212,6 +206,7 @@ export default function SellPage() {
             </div>
           </div>
 
+          {/* PHOTOS */}
           <div className="bg-white border border-gray-200 rounded-2xl p-6">
             <h2 className="font-black text-gray-900 mb-1">Photos</h2>
             <p className="text-xs text-gray-400 mb-4">Up to 5 photos · JPG, PNG, WEBP · max 10MB each</p>
@@ -226,16 +221,14 @@ export default function SellPage() {
                 {previews.map((src, i) => (
                   <div key={i} className="relative">
                     <img src={src} className="w-20 h-20 object-cover rounded-lg border border-gray-200" />
-                    <button type="button" onClick={() => removeImage(i)}
-                      className="absolute -top-2 -right-2 w-5 h-5 bg-red-600 text-white rounded-full text-xs flex items-center justify-center hover:bg-red-700">
-                      ✕
-                    </button>
+                    <button type="button" onClick={() => removeImage(i)} className="absolute -top-2 -right-2 w-5 h-5 bg-red-600 text-white rounded-full text-xs flex items-center justify-center hover:bg-red-700">✕</button>
                   </div>
                 ))}
               </div>
             )}
           </div>
 
+          {/* TERMS */}
           <div className="bg-white border border-gray-200 rounded-2xl p-6">
             <h2 className="font-black text-gray-900 mb-3">Terms & disclaimer</h2>
             <div className="bg-gray-50 rounded-xl p-4 text-xs text-gray-500 leading-relaxed mb-4">
