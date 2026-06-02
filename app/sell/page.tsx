@@ -209,12 +209,12 @@ export default function SellPage() {
           {/* PHOTOS */}
           <div className="bg-white border border-gray-200 rounded-2xl p-6">
             <h2 className="font-black text-gray-900 mb-1">Photos</h2>
-            <p className="text-xs text-gray-400 mb-4">Up to 5 photos · Take a photo or upload · max 10MB each</p>
+            <p className="text-xs text-gray-400 mb-4">Up to 5 photos · max 10MB each</p>
             <label className="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center hover:border-red-400 hover:bg-red-50 transition cursor-pointer block">
               <p className="text-2xl mb-2">📷</p>
-              <p className="text-sm text-gray-500">Tap to take a photo or upload</p>
-              <p className="text-xs text-gray-400 mt-1">On mobile this opens your camera</p>
-              <input type="file" multiple accept="image/*" capture="environment" onChange={handleImageChange} className="hidden" />
+              <p className="text-sm text-gray-500">Tap to add photos</p>
+              <p className="text-xs text-gray-400 mt-1">Take a photo or choose from your library</p>
+              <input type="file" multiple accept="image/*" onChange={handleImageChange} className="hidden" />
             </label>
             {previews.length > 0 && (
               <div className="flex gap-3 mt-4 flex-wrap">
