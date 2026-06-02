@@ -35,7 +35,6 @@ export default function Home() {
         </a>
         <div className="flex gap-2 items-center">
           <a href="/listings" className="text-sm text-gray-600 hover:text-gray-900 font-medium px-3 py-1.5 rounded-lg hover:bg-gray-100">Browse</a>
-          <a href="/housing" className="text-sm text-gray-600 hover:text-gray-900 font-medium px-3 py-1.5 rounded-lg hover:bg-gray-100">Housing</a>
           <a href="/sell" className="bg-red-600 text-white text-sm px-4 py-2 rounded-xl font-semibold hover:bg-red-700 transition">+ Sell Item</a>
         </div>
       </nav>
@@ -48,16 +47,15 @@ export default function Home() {
               🎓 For Carleton University Students
             </div>
             <h1 className="text-5xl md:text-6xl font-black leading-tight mb-6 tracking-tight">
-              Buy. Sell. Sublet.<br />
+              Buy. Sell. Trade.<br />
               <span className="opacity-90">All in One Place.</span>
             </h1>
             <p className="text-lg opacity-80 mb-8 max-w-md leading-relaxed">
-              Your student marketplace for textbooks, merch, housing, and more. 100% Carleton.
+              Your student marketplace for textbooks, merch, and more. 100% Carleton.
             </p>
             <div className="flex gap-3 flex-wrap">
               <a href="/listings" className="bg-white text-red-600 font-bold px-6 py-3 rounded-xl hover:bg-gray-100 transition">Browse Listings</a>
               <a href="/sell" className="border-2 border-white text-white font-bold px-6 py-3 rounded-xl hover:bg-red-700 transition">Sell an Item</a>
-              <a href="/housing" className="border-2 border-white text-white font-bold px-6 py-3 rounded-xl hover:bg-red-700 transition">Browse Housing</a>
             </div>
           </div>
         </div>
@@ -66,7 +64,7 @@ export default function Home() {
       {/* CATEGORIES */}
       <section className="bg-white border-b border-gray-100 px-4 py-3">
         <div className="max-w-6xl mx-auto flex gap-2 overflow-x-auto">
-          {['All','Textbooks','Clothing','Electronics','Furniture','School Supplies','Housing','Miscellaneous'].map(cat => (
+          {['All','Textbooks','Clothing','Electronics','Furniture','School Supplies','Miscellaneous'].map(cat => (
             <a key={cat} href={`/listings?category=${cat}`}
               className="whitespace-nowrap px-3 py-1.5 rounded-xl text-sm font-medium border border-gray-200 text-gray-600 hover:border-red-500 hover:text-red-600 hover:bg-red-50 transition">
               {cat}
@@ -145,15 +143,6 @@ export default function Home() {
               <a href="/sell" className="inline-block mt-8 text-red-600 font-bold text-lg hover:underline">Sell Now →</a>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* HOUSING CTA */}
-      <section className="bg-red-600 px-4 py-16 text-white text-center">
-        <div className="max-w-xl mx-auto">
-          <h2 className="text-3xl font-black mb-3">Looking for housing?</h2>
-          <p className="opacity-80 mb-6">Browse sublets and roommate listings near Carleton campus.</p>
-          <a href="/housing" className="bg-white text-red-600 font-bold px-8 py-3 rounded-xl hover:bg-gray-100 transition inline-block">Browse Housing →</a>
         </div>
       </section>
 
