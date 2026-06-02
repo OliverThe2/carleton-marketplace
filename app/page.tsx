@@ -95,9 +95,9 @@ export default function Home() {
                 <a key={listing.id} href={`/listing/${listing.slug}`}
                   className="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg hover:border-gray-300 transition cursor-pointer block">
                   {imageUrls.length > 0 ? (
-                    <img src={imageUrls[0]} alt={listing.title} className="w-full aspect-square object-cover" />
+                    <img src={imageUrls[0]} alt={listing.title} className="w-full aspect-[4/3] object-cover" />
                   ) : (
-                    <div className="aspect-square bg-gray-50 flex items-center justify-center text-5xl">🏷️</div>
+                    <div className="aspect-[4/3] bg-gray-50 flex items-center justify-center text-4xl">🏷️</div>
                   )}
                   <div className="p-3">
                     <p className="font-black text-gray-900">${listing.price}</p>
