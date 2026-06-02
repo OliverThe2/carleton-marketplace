@@ -146,6 +146,24 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ABOUT US */}
+      <section className="bg-gray-50 border-t border-gray-100 px-4 py-16">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl font-black text-gray-900 mb-4">About Us</h2>
+          <p className="text-gray-600 leading-relaxed mb-4">
+            Carleton Marketplace is a student-built platform created to help Carleton University students in Ottawa buy and sell textbooks, find housing, and connect with other students. Our goal is to simplify student transactions by providing a free, centralized marketplace tailored to the Carleton community.
+          </p>
+          <p className="text-sm font-bold text-gray-900 bg-gray-100 rounded-xl p-4 border border-gray-200">
+            We are not associated in any way, shape, or form with Carleton University.
+          </p>
+
+          <h3 className="text-lg font-black text-gray-900 mt-10 mb-3">Marketplace for Carleton Students in Ottawa</h3>
+          <p className="text-gray-600 leading-relaxed">
+            This platform is designed for students at Carleton University looking to buy textbooks, sell used items, or find housing and sublets in Ottawa. By focusing on the Carleton community, listings remain relevant and easy to browse.
+          </p>
+        </div>
+      </section>
+
       {/* FOOTER */}
       <footer className="bg-white border-t border-gray-100 px-4 py-8">
         <div className="max-w-6xl mx-auto flex items-center justify-between flex-wrap gap-4">
