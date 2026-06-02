@@ -28,12 +28,12 @@ export default function Home() {
     <main className="min-h-screen bg-white">
 
       {/* NAV */}
-      <nav className="bg-white border-b border-gray-100 px-6 py-3 flex items-center justify-between sticky top-0 z-50">
+      <nav className="bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between sticky top-0 z-50">
         <a href="/" className="flex items-center gap-2">
-          <img src="/logo.png" alt="Carleton Marketplace" width={40} height={40} className="rounded-lg" />
+          <img src="/logo.png" alt="Carleton Marketplace" width={44} height={44} className="rounded-lg" />
           <span className="font-black text-gray-900 text-lg hidden sm:block">Carleton <span className="text-red-600">Marketplace</span></span>
         </a>
-        <div className="flex gap-3 items-center">
+        <div className="flex gap-2 items-center">
           <a href="/listings" className="text-sm text-gray-600 hover:text-gray-900 font-medium px-3 py-1.5 rounded-lg hover:bg-gray-100">Browse</a>
           <a href="/housing" className="text-sm text-gray-600 hover:text-gray-900 font-medium px-3 py-1.5 rounded-lg hover:bg-gray-100">Housing</a>
           <a href="/sell" className="bg-red-600 text-white text-sm px-4 py-2 rounded-xl font-semibold hover:bg-red-700 transition">+ Sell Item</a>
@@ -41,10 +41,10 @@ export default function Home() {
       </nav>
 
       {/* HERO */}
-      <section className="bg-red-600 px-8 py-20 text-white">
-        <div className="max-w-5xl mx-auto">
+      <section className="bg-red-600 px-4 py-20 text-white">
+        <div className="max-w-6xl mx-auto">
           <div className="max-w-2xl">
-            <div className="inline-block bg-red-700 rounded-full px-4 py-1.5 text-sm font-medium mb-6 opacity-90">
+            <div className="inline-block bg-red-700 rounded-full px-4 py-1.5 text-sm font-medium mb-6">
               🎓 For Carleton University Students
             </div>
             <h1 className="text-5xl md:text-6xl font-black leading-tight mb-6 tracking-tight">
@@ -70,8 +70,8 @@ export default function Home() {
       </section>
 
       {/* CATEGORIES */}
-      <section className="bg-white border-b border-gray-100 px-6 py-4">
-        <div className="max-w-5xl mx-auto flex gap-2 overflow-x-auto">
+      <section className="bg-white border-b border-gray-100 px-4 py-4">
+        <div className="max-w-6xl mx-auto flex gap-2 overflow-x-auto">
           {['All','Textbooks','Clothing','Electronics','Furniture','School Supplies','Housing','Miscellaneous'].map(cat => (
             <a key={cat} href={`/listings?category=${cat}`}
               className="whitespace-nowrap px-4 py-2 rounded-xl text-sm font-medium border border-gray-200 text-gray-600 hover:border-red-500 hover:text-red-600 hover:bg-red-50 transition">
@@ -82,7 +82,7 @@ export default function Home() {
       </section>
 
       {/* LISTINGS */}
-      <section className="max-w-5xl mx-auto px-6 py-12">
+      <section className="max-w-6xl mx-auto px-4 py-12">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-black text-gray-900">Recent Listings</h2>
           <a href="/listings" className="text-sm text-red-600 font-semibold hover:underline">See all →</a>
@@ -117,28 +117,45 @@ export default function Home() {
         )}
       </section>
 
-      {/* HOW IT WORKS */}
-      <section className="bg-gray-50 border-t border-gray-100 px-6 py-16">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-black text-gray-900 text-center mb-10">How it works</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { icon: '📸', title: 'Post your item', desc: 'Fill out a quick form with photos, price, and description.' },
-              { icon: '👀', title: 'Students browse', desc: 'Your listing goes live after a quick review. Students find it instantly.' },
-              { icon: '🤝', title: 'Meet on campus', desc: 'Connect with the buyer and meet in a safe public spot on campus.' },
-            ].map((step, i) => (
-              <div key={i} className="bg-white rounded-2xl p-6 border border-gray-200 text-center">
-                <div className="text-4xl mb-4">{step.icon}</div>
-                <h3 className="font-black text-gray-900 mb-2">{step.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{step.desc}</p>
+      {/* HOW SELLING WORKS */}
+      <section className="bg-white border-t border-gray-100 px-4 py-16">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="flex flex-col items-center justify-center">
+              <img src="/logo.png" alt="Carleton Marketplace" className="w-80 h-80 object-contain" />
+            </div>
+            <div>
+              <h2 className="text-3xl font-black text-gray-900 mb-8">How Selling on Carleton Marketplace Works</h2>
+              <div className="grid grid-cols-2 gap-8">
+                <div>
+                  <div className="text-3xl mb-3">🛒</div>
+                  <h3 className="font-black text-gray-900 mb-1">1. Post Your Item</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">Fill out the form with details like the item name, price, your contact info, and a meeting spot on campus.</p>
+                </div>
+                <div>
+                  <div className="text-3xl mb-3">🛍️</div>
+                  <h3 className="font-black text-gray-900 mb-1">2. Browse Listings</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">Check the marketplace to see what other students are selling. Use filters to sort by price, category, or location.</p>
+                </div>
+                <div>
+                  <div className="text-3xl mb-3">🏫</div>
+                  <h3 className="font-black text-gray-900 mb-1">3. Connect With Buyers on Campus</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">Interested students will reach out using the contact info you provided to set up a meeting on campus.</p>
+                </div>
+                <div>
+                  <div className="text-3xl mb-3">✅</div>
+                  <h3 className="font-black text-gray-900 mb-1">4. Mark It Sold</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">Once your item is sold, update your listing so it disappears from the marketplace.</p>
+                </div>
               </div>
-            ))}
+              <a href="/sell" className="inline-block mt-8 text-red-600 font-bold text-lg hover:underline">Sell Now →</a>
+            </div>
           </div>
         </div>
       </section>
 
       {/* HOUSING CTA */}
-      <section className="bg-red-600 px-6 py-16 text-white text-center">
+      <section className="bg-red-600 px-4 py-16 text-white text-center">
         <div className="max-w-xl mx-auto">
           <h2 className="text-3xl font-black mb-3">Looking for housing?</h2>
           <p className="opacity-80 mb-6">Browse sublets and roommate listings near Carleton campus.</p>
@@ -149,8 +166,8 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-white border-t border-gray-100 px-6 py-8">
-        <div className="max-w-5xl mx-auto flex items-center justify-between flex-wrap gap-4">
+      <footer className="bg-white border-t border-gray-100 px-4 py-8">
+        <div className="max-w-6xl mx-auto flex items-center justify-between flex-wrap gap-4">
           <div className="flex items-center gap-2">
             <img src="/logo.png" alt="Carleton Marketplace" width={32} height={32} className="rounded-lg" />
             <span className="font-black text-gray-900 text-sm">Carleton <span className="text-red-600">Marketplace</span></span>
