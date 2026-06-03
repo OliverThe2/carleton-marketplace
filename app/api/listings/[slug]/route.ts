@@ -5,6 +5,25 @@ const supabase = createClient(
   'sb_publishable_QvAkXBNM5ZNZy862HyTIBA_608YXLkI'
 )
 
+function parseImages(value: any): string[] {
+  if (Array.isArray(value)) return value
+  if (typeof value === 'string') {
+    // Try JSON first
+    try {
+      const parsed = JSON.parse(value)
+      if (Array.isArray(parsed)) return parsed
+    } catch {
+      // Postgres array format: {"url1","url2"}
+      return value
+        .replace(/^{|}$/g, '')
+        .split(',')
+        .map(s => s.replace(/^"|"$/g, '').trim())
+        .filter(Boolean)
+    }
+  }
+  return []
+}
+
 export async function GET(
   request: Request,
   context: { params: Promise<{ slug: string }> }
@@ -21,9 +40,7 @@ export async function GET(
     success: true,
     listing: {
       ...listing,
-      image_urls: typeof listing.image_urls === 'string'
-        ? JSON.parse(listing.image_urls)
-        : listing.image_urls || []
+      image_urls: parseImages(listing.image_urls)
     }
   })
 }
