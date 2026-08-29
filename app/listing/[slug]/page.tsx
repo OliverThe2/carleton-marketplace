@@ -55,6 +55,21 @@ export default function ListingPage() {
       })
   }, [slug])
 
+  useEffect(() => {
+    if (!slug) return
+    fetch('/api/track', {
+      method: 'POST',
+      body: JSON.stringify({ slug, stat: 'view' }),
+    }).catch(() => {})
+  }, [slug])
+
+  const trackContact = () => {
+    fetch('/api/track', {
+      method: 'POST',
+      body: JSON.stringify({ slug, stat: 'contact' }),
+    }).catch(() => {})
+  }
+
   if (loading) {
     return (
       <main className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -85,7 +100,7 @@ export default function ListingPage() {
       <nav className="bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between sticky top-0 z-50">
         <a href="/" className="flex items-center gap-2">
           <img src="/logo.png" alt="Carleton Marketplace" width={44} height={44} className="rounded-lg" />
-          <span className="font-black text-gray-900 text-lg hidden sm:block">Carleton <span className="text-red-600">Marketplace</span></span>
+          <span className="font-extrabold text-gray-900 text-lg hidden sm:block tracking-tight">Carleton <span className="text-red-600">Marketplace</span></span>
         </a>
         <div className="flex gap-2 items-center">
           <a href="/listings" className="text-sm text-gray-600 hover:text-gray-900 font-medium px-3 py-1.5 rounded-lg hover:bg-gray-100">← Back</a>
@@ -99,21 +114,11 @@ export default function ListingPage() {
           <div>
             {hasImages ? (
               <div className="space-y-3">
-                <img
-                  src={imageUrls[activeImage]}
-                  alt={listing.title}
-                  className="w-full aspect-square object-cover rounded-2xl border border-gray-200"
-                />
+                <img src={imageUrls[activeImage]} alt={listing.title} className="w-full aspect-square object-cover rounded-2xl border border-gray-200" />
                 {imageUrls.length > 1 && (
                   <div className="flex gap-2">
                     {imageUrls.map((url, i) => (
-                      <img
-                        key={i}
-                        src={url}
-                        alt={listing.title}
-                        onClick={() => setActiveImage(i)}
-                        className={`w-16 h-16 object-cover rounded-lg border-2 cursor-pointer transition ${activeImage === i ? 'border-red-500' : 'border-gray-200'}`}
-                      />
+                      <img key={i} src={url} alt={listing.title} onClick={() => setActiveImage(i)} className={`w-16 h-16 object-cover rounded-lg border-2 cursor-pointer transition ${activeImage === i ? 'border-red-500' : 'border-gray-200'}`} />
                     ))}
                   </div>
                 )}
@@ -130,8 +135,8 @@ export default function ListingPage() {
               <span className="text-xs bg-gray-100 text-gray-500 px-3 py-1 rounded-full">{listing.category}</span>
               <span className="text-xs bg-gray-100 text-gray-500 px-3 py-1 rounded-full">{listing.condition}</span>
             </div>
-            <h1 className="text-2xl font-black text-gray-900 mb-2">{listing.title}</h1>
-            <p className="text-3xl font-black text-red-600 mb-4">${listing.price}</p>
+            <h1 className="text-2xl font-extrabold text-gray-900 mb-2 tracking-tight">{listing.title}</h1>
+            <p className="text-3xl font-extrabold text-red-600 mb-4 tracking-tight">${listing.price}</p>
             <p className="text-xs text-gray-400 mb-6">Listed {timeAgo(listing.created_at)}</p>
 
             <div className="bg-gray-50 rounded-xl p-4 mb-4">
@@ -154,24 +159,24 @@ export default function ListingPage() {
             <div className="bg-white border border-gray-200 rounded-2xl p-5 mb-4">
               <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Seller</p>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-600 font-black text-sm">
+                <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-600 font-extrabold text-sm">
                   {listing.seller_name.charAt(0).toUpperCase()}
                 </div>
                 <p className="font-semibold text-gray-900">{listing.seller_name}</p>
               </div>
               <div className="space-y-2">
                 {listing.email && (
-                  <a href={`mailto:${listing.email}`} className="flex items-center gap-2 w-full bg-red-600 text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-red-700 transition">
+                  <a href={`mailto:${listing.email}`} onClick={trackContact} className="flex items-center gap-2 w-full bg-red-600 text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-red-700 transition">
                     ✉️ Email seller
                   </a>
                 )}
                 {listing.phone && (
-                  <a href={`sms:${listing.phone}`} className="flex items-center gap-2 w-full bg-gray-100 text-gray-700 px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-200 transition">
+                  <a href={`sms:${listing.phone}`} onClick={trackContact} className="flex items-center gap-2 w-full bg-gray-100 text-gray-700 px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-200 transition">
                     💬 Text seller
                   </a>
                 )}
                 {listing.instagram && (
-                  <a href={`https://instagram.com/${listing.instagram.replace('@', '')}`} target="_blank" className="flex items-center gap-2 w-full bg-gray-100 text-gray-700 px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-200 transition">
+                  <a href={`https://instagram.com/${listing.instagram.replace('@', '')}`} target="_blank" onClick={trackContact} className="flex items-center gap-2 w-full bg-gray-100 text-gray-700 px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-200 transition">
                     📸 Instagram: {listing.instagram}
                   </a>
                 )}
