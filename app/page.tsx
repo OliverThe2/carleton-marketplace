@@ -43,12 +43,12 @@ export default function Home() {
 
       {/* HERO */}
       <section className="bg-red-600 px-4 py-24 text-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="max-w-3xl">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-12 items-center">
+          <div>
             <div className="inline-block bg-red-700 rounded-full px-4 py-1.5 text-sm font-medium mb-7">
               🎓 For Carleton University Students
             </div>
-            <h1 style={DISPLAY} className="text-6xl md:text-8xl font-black leading-[1.0] mb-7 tracking-tight">
+            <h1 style={DISPLAY} className="text-6xl md:text-7xl font-black leading-[1.0] mb-7 tracking-tight">
               Buy. Sell. <span className="italic">Trade.</span><br />
               <span className="opacity-90">All in One Place.</span>
             </h1>
@@ -59,6 +59,15 @@ export default function Home() {
               <a href="/listings" className="bg-white text-red-600 font-bold px-6 py-3 rounded-xl hover:bg-gray-100 transition">Browse Listings</a>
               <a href="/sell" className="border-2 border-white text-white font-bold px-6 py-3 rounded-xl hover:bg-red-700 transition">Sell an Item</a>
             </div>
+          </div>
+
+          <div className="bg-white text-gray-900 rounded-2xl p-6 shadow-xl">
+            <span className="inline-block bg-red-50 text-red-700 text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full mb-4">Starting this fall</span>
+            <h2 style={DISPLAY} className="text-2xl font-black leading-tight mb-3 tracking-tight">New to Carleton?</h2>
+            <p className="text-sm text-gray-600 leading-relaxed mb-5">
+              Buy your first-year textbooks from students who just finished the course — for a fraction of bookstore prices.
+            </p>
+            <a href="/listings?category=Textbooks" className="block text-center bg-red-600 text-white font-bold text-sm px-5 py-3 rounded-xl hover:bg-red-700 transition">Browse textbooks →</a>
           </div>
         </div>
       </section>
