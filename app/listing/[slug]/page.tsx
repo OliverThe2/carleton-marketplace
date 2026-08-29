@@ -59,12 +59,12 @@ export default function ListingPage() {
     if (!slug) return
     fetch('/api/track', {
       method: 'POST',
-      body: JSON.stringify({ slug, stat: 'view' }),
+      body: JSON.stringify({ slug, stat: 'view', referrer: document.referrer || '' }),
     }).catch(() => {})
   }, [slug])
 
   const trackContact = () => {
-    const payload = JSON.stringify({ slug, stat: 'contact' })
+    const payload = JSON.stringify({ slug, stat: 'contact', referrer: document.referrer || '' })
     if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
       navigator.sendBeacon('/api/track', new Blob([payload], { type: 'application/json' }))
     } else {

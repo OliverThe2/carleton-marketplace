@@ -7,11 +7,15 @@ const supabase = createClient(
 
 export async function POST(request: Request) {
   try {
-    const { slug, stat } = await request.json()
+    const { slug, stat, referrer } = await request.json()
     if (!slug || (stat !== 'view' && stat !== 'contact')) {
       return Response.json({ success: false }, { status: 400 })
     }
-    await supabase.rpc('bump_listing_stat', { listing_slug: slug, stat })
+    await supabase.rpc('bump_listing_stat', {
+      listing_slug: slug,
+      stat,
+      ref: typeof referrer === 'string' ? referrer.slice(0, 300) : null,
+    })
     return Response.json({ success: true })
   } catch {
     return Response.json({ success: false }, { status: 500 })

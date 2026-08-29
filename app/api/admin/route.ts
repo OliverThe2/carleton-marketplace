@@ -15,12 +15,22 @@ export async function POST(request: Request) {
     }
 
     if (body.action === 'stats') {
-      const { data, error } = await supabase
-        .from('listings')
-        .select('*')
-        .order('created_at', { ascending: false })
-      if (error) return Response.json({ success: false, error: error.message }, { status: 500 })
-      return Response.json({ success: true, listings: data || [] })
+      const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
+
+      const [listingsRes, eventsRes] = await Promise.all([
+        supabase.from('listings').select('*').order('created_at', { ascending: false }),
+        supabase.from('listing_events').select('created_at, slug, kind, referrer').gte('created_at', since).order('created_at', { ascending: false }).limit(5000),
+      ])
+
+      if (listingsRes.error) {
+        return Response.json({ success: false, error: listingsRes.error.message }, { status: 500 })
+      }
+
+      return Response.json({
+        success: true,
+        listings: listingsRes.data || [],
+        events: eventsRes.data || [],
+      })
     }
 
     if (body.action === 'approve' || body.action === 'unapprove') {
