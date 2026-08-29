@@ -15,6 +15,51 @@ type Listing = {
 
 const DISPLAY = { fontFamily: 'var(--font-display)' }
 
+const STEPS = [
+  {
+    n: '01',
+    title: 'Post Your Item',
+    body: 'Fill out the form with details like the item name, price, your contact info, and a meeting spot on campus.',
+    icon: (
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 7h9M4 12h6" />
+        <path d="M17 9v6M14 12h6" />
+      </svg>
+    ),
+  },
+  {
+    n: '02',
+    title: 'Browse Listings',
+    body: 'Check the marketplace to see what other students are selling. Use filters to sort by price, category, or location.',
+    icon: (
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="11" cy="11" r="6" />
+        <path d="M20 20l-4.2-4.2" />
+      </svg>
+    ),
+  },
+  {
+    n: '03',
+    title: 'Connect With Buyers on Campus',
+    body: 'Interested students will reach out using the contact info you provided to set up a meeting on campus.',
+    icon: (
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20 12a7 7 0 0 1-7 7H8l-4 3v-4.5A7 7 0 0 1 8 5h5a7 7 0 0 1 7 7Z" />
+      </svg>
+    ),
+  },
+  {
+    n: '04',
+    title: 'Mark It Sold',
+    body: 'Once your item is sold, update your listing so it disappears from the marketplace.',
+    icon: (
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M5 12.5l4.5 4.5L19 7.5" />
+      </svg>
+    ),
+  },
+]
+
 export default function Home() {
   const [listings, setListings] = useState<Listing[]>([])
 
@@ -119,39 +164,104 @@ export default function Home() {
       </section>
 
       {/* HOW SELLING WORKS */}
-      <section className="bg-white border-t border-gray-100 px-4 py-16">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div className="flex items-center justify-center">
-              <img src="/logo.png" alt="Carleton Marketplace" className="w-full max-w-sm object-contain" />
+      <section className="bg-white px-4 py-20">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+
+          {/* LEFT */}
+          <div>
+            <div className="bg-red-600 rounded-3xl overflow-hidden aspect-square">
+              <svg viewBox="0 0 400 400" className="w-full h-full">
+                <circle cx="310" cy="120" r="135" fill="#fff" opacity="0.09" />
+                <circle cx="95" cy="300" r="105" fill="#fff" opacity="0.09" />
+                <circle cx="62" cy="128" r="11" fill="#fff" opacity="0.5" />
+                <circle cx="330" cy="315" r="15" fill="#fff" opacity="0.35" />
+                <g opacity="0.16" transform="rotate(-24 108 62)">
+                  <path d="M56 62 C56 34 84 20 112 20 C112 48 92 62 56 62 Z" fill="#fff" />
+                </g>
+
+                <g transform="rotate(-7 200 200)">
+                  <rect x="58" y="112" width="286" height="176" rx="22" fill="#fff" />
+                  <rect x="84" y="138" width="92" height="92" rx="16" fill="#FBE3E5" />
+                  <rect x="104" y="158" width="22" height="52" rx="5" fill="#fff" />
+                  <rect x="134" y="158" width="22" height="52" rx="5" fill="#fff" />
+                  <rect x="196" y="146" width="122" height="15" rx="7.5" fill="#16161E" />
+                  <rect x="196" y="176" width="94" height="11" rx="5.5" fill="#E6E4EA" />
+                  <rect x="196" y="202" width="72" height="24" rx="12" fill="#DC2626" />
+                  <rect x="212" y="211" width="40" height="6" rx="3" fill="#fff" />
+                  <rect x="196" y="242" width="110" height="11" rx="5.5" fill="#E6E4EA" />
+                </g>
+
+                <g transform="rotate(5 200 200)">
+                  <rect x="86" y="272" width="232" height="74" rx="26" fill="#fff" />
+                  <circle cx="124" cy="309" r="23" fill="#FBE3E5" />
+                  <path d="M114 309 l7 7 l14 -15" fill="none" stroke="#DC2626" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+                  <rect x="160" y="294" width="112" height="13" rx="6.5" fill="#16161E" />
+                  <rect x="160" y="318" width="70" height="10" rx="5" fill="#E6E4EA" />
+                  <circle cx="294" cy="309" r="15" fill="#16161E" />
+                </g>
+              </svg>
             </div>
-            <div>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-8 tracking-tight leading-tight">How Selling on Carleton Marketplace Works</h2>
-              <div className="grid grid-cols-2 gap-8">
-                <div>
-                  <div className="text-3xl mb-3">🛒</div>
-                  <h3 className="font-bold text-gray-900 mb-1">1. Post Your Item</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">Fill out the form with details like the item name, price, your contact info, and a meeting spot on campus.</p>
-                </div>
-                <div>
-                  <div className="text-3xl mb-3">🛍️</div>
-                  <h3 className="font-bold text-gray-900 mb-1">2. Browse Listings</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">Check the marketplace to see what other students are selling. Use filters to sort by price, category, or location.</p>
-                </div>
-                <div>
-                  <div className="text-3xl mb-3">🏫</div>
-                  <h3 className="font-bold text-gray-900 mb-1">3. Connect With Buyers on Campus</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">Interested students will reach out using the contact info you provided to set up a meeting on campus.</p>
-                </div>
-                <div>
-                  <div className="text-3xl mb-3">✅</div>
-                  <h3 className="font-bold text-gray-900 mb-1">4. Mark It Sold</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">Once your item is sold, update your listing so it disappears from the marketplace.</p>
-                </div>
+
+            <div className="flex items-center gap-3 mt-8">
+              <img src="/logo.png" alt="" className="w-12 h-12" />
+              <span style={DISPLAY} className="text-2xl font-black tracking-tight text-gray-900">Carleton <span className="text-red-600">Marketplace</span></span>
+            </div>
+
+            <div className="bg-[#FAF6F5] rounded-2xl p-6 mt-6">
+              <div className="flex items-baseline gap-3">
+                <span style={DISPLAY} className="text-5xl font-black text-red-600 tracking-tight">$0</span>
+                <span className="text-sm text-gray-500 font-medium">to list, to sell, to use</span>
               </div>
-              <a href="/sell" className="inline-block mt-8 text-red-600 font-bold text-lg hover:underline">Sell Now →</a>
+              <div className="border-t border-gray-200 my-5" />
+              <ul className="space-y-3">
+                {['Carleton students only', 'Meet on campus, no shipping', 'Textbooks, merch, furniture and more'].map(item => (
+                  <li key={item} className="flex items-center gap-3 text-sm text-gray-700">
+                    <span className="w-5 h-5 rounded-md bg-red-100 text-red-600 flex items-center justify-center shrink-0">
+                      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
+
+          {/* RIGHT */}
+          <div>
+            <span className="inline-flex items-center gap-2 bg-red-50 text-red-600 text-xs font-bold px-4 py-2 rounded-full mb-6">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2z" /></svg>
+              Free to list · Free to sell
+            </span>
+
+            <h2 style={DISPLAY} className="text-4xl md:text-5xl font-black text-gray-900 tracking-tight leading-[1.05] mb-5">
+              How Selling on Carleton Marketplace Works
+            </h2>
+
+            <p className="text-gray-500 leading-relaxed mb-10 max-w-md">
+              Four steps, start to finish. No fees, no shipping, no strangers — just students meeting on campus.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {STEPS.map((s, i) => {
+                const dark = i === 3
+                return (
+                  <div key={s.n} className={`relative rounded-2xl p-6 ${dark ? 'bg-[#1A1A22]' : 'bg-[#FAF6F5]'}`}>
+                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-5 ${dark ? 'bg-red-600 text-white' : 'bg-white text-red-600'}`}>
+                      {s.icon}
+                    </div>
+                    <span style={DISPLAY} className={`absolute top-5 right-6 text-2xl font-black ${dark ? 'text-white/25' : 'text-gray-300'}`}>{s.n}</span>
+                    <h3 className={`font-bold mb-2 leading-snug ${dark ? 'text-white' : 'text-gray-900'}`}>{s.title}</h3>
+                    <p className={`text-sm leading-relaxed ${dark ? 'text-gray-400' : 'text-gray-500'}`}>{s.body}</p>
+                  </div>
+                )
+              })}
+            </div>
+
+            <a href="/sell" className="inline-block mt-8 bg-red-600 text-white font-bold px-7 py-3.5 rounded-xl hover:bg-red-700 transition">
+              Sell an Item →
+            </a>
+          </div>
+
         </div>
       </section>
 
